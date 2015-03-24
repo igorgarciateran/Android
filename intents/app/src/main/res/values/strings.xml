@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">intents</string>
+
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+    <string name="title_activity_resultado">Resultado</string>
+
+
+
+    <string name="TextoAPasar">ESCRIBE ALGO</string>
+</resources>
