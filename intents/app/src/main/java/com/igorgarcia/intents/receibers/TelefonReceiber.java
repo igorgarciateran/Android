@@ -14,8 +14,8 @@ public class TelefonReceiber extends BroadcastReceiver {
         // TODO: This method is called when the BroadcastReceiver is receiving
         // an Intent broadcast.
 
-        Log.d(RECEIVER, "ConnectionReceiver onReceive()");
-        Log.d(RECEIVER,"ACTION" + intent.getAction());
+        Log.d("RECEIVER", "ConnectionReceiver onReceive()");
+        Log.d("RECEIVER","ACTION" + intent.getAction());
 
 
 
