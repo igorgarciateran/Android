@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <PreferenceCategory android:title="@string/Categoria1">
+    <!-- AutoRefresh si/NO-->
+
+        <SwitchPreference android:key="@string/opcion1Key"
+            android:title="@string/opcion1Title"
+            android:summary="@string/opcion1Summary"
+            android:defaultValue="@string/opcion1Value">
+        </SwitchPreference>
+
+
+        <!-- Cada cuanto tiempo -->
+        <ListPreference android:key="@string/opcion2Key"
+            android:title="@string/opcion2Title"
+            android:summary="@string/opcion2Summary"
+            android:defaultValue="@string/opcion2Value"
+            android:entries="@array/Opcion2_Lista_Titulo"
+            android:entryValues="@array/Opcion2_Lista_Valor"
+            android:dependency="@string/opcion1Key">
+        </ListPreference>
+
+    </PreferenceCategory>
+
+    <PreferenceCategory android:title="@string/Categoria2">
+        <!-- Magnitud Minima -->
+        <ListPreference android:key="@string/opcion3Key"
+            android:title="@string/opcion3Title"
+            android:summary="@string/opcion3Summary"
+            android:defaultValue="@string/opcion3Value"
+            android:entries="@array/Opcion3_Lista_Titulo"
+            android:entryValues="@array/Opcion3_Lista_Valor">
+        </ListPreference>
+
+
+    </PreferenceCategory>
+</PreferenceScreen>

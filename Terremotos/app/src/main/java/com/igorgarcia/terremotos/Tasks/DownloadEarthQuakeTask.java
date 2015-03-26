@@ -27,6 +27,8 @@ public class DownloadEarthQuakeTask extends AsyncTask<String, EarthQuake, Intege
     //creamos una interfaz para poder acceder desde fuera
     public interface AddEarthQuakeInterface {
         public void AddEarthQuake(EarthQuake earthquake);
+
+        public void NotifyTotal(int Total);
     }
 
 
@@ -40,11 +42,11 @@ public class DownloadEarthQuakeTask extends AsyncTask<String, EarthQuake, Intege
 
     @Override
     protected Integer doInBackground(String... urls) {
-
+        int cont = 0;
         if (urls.length > 0) {
-            updateEarthQuake(urls[0]);
+            cont = updateEarthQuake(urls[0]);
         }
-        return null;
+        return cont;
     }
 
 
@@ -55,12 +57,20 @@ public class DownloadEarthQuakeTask extends AsyncTask<String, EarthQuake, Intege
         //utilizamos una interfaz para poder pasar datos fuera
 
         target.AddEarthQuake(earthQuakes[0]);
+    }
+
+
+    @Override
+    protected void onPostExecute(Integer integer) {
+        super.onPostExecute(integer);
+        target.NotifyTotal(integer);
 
     }
 
 
-    private void updateEarthQuake(String earthquakeFeed) {
+    private int updateEarthQuake(String earthquakeFeed) {
         JSONObject json;
+        int contador = 0;
 
         // String earthquakeFeed = getString(R.string.earth_quakes_url);
 
@@ -80,6 +90,8 @@ public class DownloadEarthQuakeTask extends AsyncTask<String, EarthQuake, Intege
                     responseStrBuilder.append(inputStr);
                 json = new JSONObject(responseStrBuilder.toString());
                 JSONArray earthquakes = json.getJSONArray("features");
+
+                contador = earthquakes.length();
                 for (int i = earthquakes.length() - 1; i >= 0; i--) {
                     processEarthQuakeTask(earthquakes.getJSONObject(i));
                 }
@@ -94,6 +106,7 @@ public class DownloadEarthQuakeTask extends AsyncTask<String, EarthQuake, Intege
         } catch (JSONException e) {
             e.printStackTrace();
         }
+        return contador;
     }
 
 

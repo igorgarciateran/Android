@@ -1,12 +1,17 @@
-package com.igorgarcia.terremotos;
+package com.igorgarcia.terremotos.activities;
 
+import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.igorgarcia.terremotos.R;
+
 
 public class MainActivity extends ActionBarActivity {
+private int PREFS_ACTIVITY=1;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,9 +36,21 @@ public class MainActivity extends ActionBarActivity {
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
+
+            Intent prefsIntent = new Intent (this,SettingsActivity.class);
+            startActivityForResult(prefsIntent,PREFS_ACTIVITY);
+
             return true;
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        //aqui habria que poner el codigo si queremos hacer algo cuando se cierren las settings
+
     }
 }

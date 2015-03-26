@@ -9,14 +9,16 @@
         android:text="New Text"
         android:id="@+id/TXTMagnitud"
         android:layout_weight="1"
-        android:hint="4.2" />
+        android:hint="@string/Magnitud"
+        android:background="#ff15ff12" />
 
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
-        android:layout_weight="7">
+        android:layout_weight="7"
+        android:dividerPadding="0dp">
 
         <TextView
             android:layout_width="match_parent"
@@ -24,7 +26,7 @@
             android:text="New Text"
             android:id="@+id/TxtDatoarriba"
             android:layout_weight="1"
-            android:hint="terremoto" />
+            android:hint="@string/terremoto" />
 
         <TextView
             android:layout_width="match_parent"
@@ -32,7 +34,7 @@
             android:text="New Text"
             android:id="@+id/TxtDatoAbajo"
             android:layout_weight="1"
-            android:hint="Donde" />
+            android:hint="@string/donde" />
     </LinearLayout>
 
 </LinearLayout>

@@ -4,4 +4,43 @@
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
     <string name="earth_quakes_url">http://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_hour.geojson</string>
+
+
+<string name="terremoto">terremoto</string>
+    <string name="donde">donde</string>
+    <string name="Magnitud">Magnitud</string>
+    <string name="title_activity_detail">Detail</string>
+    <string name="Mensaje">Total Terremotos: %d </string>
+
+
+    <string name="NombreSettings">Settings </string>
+
+
+    <string name="Categoria1">Categoria1 </string>
+    <string name="Categoria2">Categoria2 </string>
+
+
+
+
+    <string name="opcion1Key">PREF_REFRESH_AUTO </string>
+    <string name="opcion1Title">Refresco</string>
+    <string name="opcion1Summary">Refresco Automatico SI/NO </string>
+    <string name="opcion1Value">0 </string>
+
+
+
+    <string name="opcion2Key">PREF_REFRESH_VALUE </string>
+    <string name="opcion2Title">Frecuencia </string>
+    <string name="opcion2Summary">Frecuencia de refresco</string>
+    <string name="opcion2Value">5 </string>
+
+
+    <string name="opcion3Key">PREF_MAGNITUD_MIN </string>
+    <string name="opcion3Title">Magnitud</string>
+    <string name="opcion3Summary">Magnitud Minima a mostrar</string>
+    <string name="opcion3Value">5 </string>
+
+
+
+
 </resources>

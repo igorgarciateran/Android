@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string-array name="Opcion2_Lista_Titulo">
+        <item>5 minutes</item>
+        <item>10 minutes</item>
+        <item>15 minutes</item>
+        <item>20 Minutes</item>
+        <item>25 minutes</item>
+        <item>30 minutes</item>
+        <item>35 minutes</item>
+    </string-array>
+
+    <string-array
+        name="Opcion2_Lista_Valor">
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+        <item>5</item>
+        <item>6</item>
+        <item>7</item>
+
+    </string-array>
+
+
+
+    <string-array name="Opcion3_Lista_Titulo">
+        <item>grado 1</item>
+        <item>grado 2</item>
+        <item>grado 3</item>
+        <item>grado 4</item>
+        <item>grado 5</item>
+        <item>grado 6</item>
+        <item>grado 7</item>
+        <item>grado 8</item>
+        <item>grado 9</item>
+
+    </string-array>
+
+    <string-array
+        name="Opcion3_Lista_Valor">
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+        <item>5</item>
+        <item>6</item>
+        <item>7</item>
+        <item>8</item>
+        <item>9</item>
+    </string-array>
+
+
+
+
+</resources>

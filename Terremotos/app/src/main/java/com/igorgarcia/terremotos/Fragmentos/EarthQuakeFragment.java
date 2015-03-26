@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.igorgarcia.terremotos.Model.Coordinate;
 import com.igorgarcia.terremotos.Model.EarthQuake;
@@ -16,6 +17,7 @@ import com.igorgarcia.terremotos.R;
 
 import com.igorgarcia.terremotos.Fragmentos.dummy.DummyContent;
 import com.igorgarcia.terremotos.Tasks.DownloadEarthQuakeTask;
+import com.igorgarcia.terremotos.adapter.EarthquakeAdapter;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -37,6 +39,8 @@ public class EarthQuakeFragment extends ListFragment implements DownloadEarthQua
     ArrayList<EarthQuake> earthQuakes ;
     String EARTHQUAKE = "EARTHQUAKE";
     private ArrayAdapter<EarthQuake> aa;
+    private EarthquakeAdapter aa2;
+
 
     /**
      * Mandatory empty constructor for the fragment manager to instantiate the
@@ -70,8 +74,13 @@ public class EarthQuakeFragment extends ListFragment implements DownloadEarthQua
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View layout=super.onCreateView(inflater,container,savedInstanceState);
 
-        aa=new ArrayAdapter<EarthQuake>(getActivity(),android.R.layout.simple_list_item_1,earthQuakes);
-        setListAdapter(aa);
+       // aa=new ArrayAdapter<EarthQuake>( getActivity(), android.R.layout.simple_list_item_1,earthQuakes);
+       // setListAdapter(aa);
+
+        aa2=new EarthquakeAdapter(getActivity(),R.layout.layoutterremoto,earthQuakes);
+        setListAdapter(aa2);
+
+
         return layout;
     }
 
@@ -79,6 +88,14 @@ public class EarthQuakeFragment extends ListFragment implements DownloadEarthQua
     public void AddEarthQuake(EarthQuake earthquake) {
 
         earthQuakes.add(0,earthquake);
-        aa.notifyDataSetChanged();
+        //aa.notifyDataSetChanged();
+
+        aa2.notifyDataSetChanged();
+    }
+
+    @Override
+    public void NotifyTotal(int Total) {
+        String msg= getString(R.string.Mensaje,Total);
+        Toast toast=  Toast.makeText( getActivity(),msg + Total, Toast.LENGTH_LONG);
     }
 }
