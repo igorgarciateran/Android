@@ -1,8 +1,11 @@
 package com.igorgarcia.terremotos.Fragmentos;
 
 import android.app.Activity;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.app.ListFragment;
+import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,6 +20,7 @@ import com.igorgarcia.terremotos.R;
 
 import com.igorgarcia.terremotos.Fragmentos.dummy.DummyContent;
 import com.igorgarcia.terremotos.Tasks.DownloadEarthQuakeTask;
+import com.igorgarcia.terremotos.activities.MainActivity;
 import com.igorgarcia.terremotos.adapter.EarthquakeAdapter;
 
 import org.json.JSONArray;
@@ -33,13 +37,15 @@ import java.net.URLConnection;
 import java.util.ArrayList;
 
 
-public class EarthQuakeFragment extends ListFragment implements DownloadEarthQuakeTask.AddEarthQuakeInterface {
+public class EarthQuakeFragment extends ListFragment {
 
 
     ArrayList<EarthQuake> earthQuakes ;
     String EARTHQUAKE = "EARTHQUAKE";
     private ArrayAdapter<EarthQuake> aa;
     private EarthquakeAdapter aa2;
+
+    private SharedPreferences Prefs=null;
 
 
     /**
@@ -55,8 +61,14 @@ public class EarthQuakeFragment extends ListFragment implements DownloadEarthQua
 
         earthQuakes = new ArrayList<EarthQuake>();
 
-        DownloadEarthQuakeTask task= new DownloadEarthQuakeTask(this);
-        task.execute(getString(R.string.earth_quakes_url));
+        Prefs= PreferenceManager.getDefaultSharedPreferences(getActivity());
+
+        //downloadEarthQuakes();
+
+
+        //por las 2 lineas de abajo
+        /*DownloadEarthQuakeTask task= new DownloadEarthQuakeTask(this);
+        task.execute(getString(R.string.earth_quakes_url));*/
         //ponemos esta linea de parte de lo de abajo
 
        /*
@@ -80,22 +92,21 @@ public class EarthQuakeFragment extends ListFragment implements DownloadEarthQua
         aa2=new EarthquakeAdapter(getActivity(),R.layout.layoutterremoto,earthQuakes);
         setListAdapter(aa2);
 
-
         return layout;
     }
 
     @Override
-    public void AddEarthQuake(EarthQuake earthquake) {
+    public void onListItemClick(ListView l, View v, int position, long id) {
+        super.onListItemClick(l, v, position, id);
 
-        earthQuakes.add(0,earthquake);
-        //aa.notifyDataSetChanged();
+        //para abrir los datos de un terremoto cuando se pulsa sobre el
+       // Intent detailIntent = new Intent(getActivity(),Detail.class);
 
-        aa2.notifyDataSetChanged();
+
     }
 
-    @Override
-    public void NotifyTotal(int Total) {
-        String msg= getString(R.string.Mensaje,Total);
-        Toast toast=  Toast.makeText( getActivity(),msg + Total, Toast.LENGTH_LONG);
-    }
+
+
+
+
 }

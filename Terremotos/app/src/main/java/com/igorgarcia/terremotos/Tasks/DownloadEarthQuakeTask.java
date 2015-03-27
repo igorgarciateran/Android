@@ -1,8 +1,10 @@
 package com.igorgarcia.terremotos.Tasks;
 
+import android.content.Context;
 import android.os.AsyncTask;
 import android.util.Log;
 
+import com.igorgarcia.terremotos.BD.EarthQuakeDB;
 import com.igorgarcia.terremotos.Model.Coordinate;
 import com.igorgarcia.terremotos.Model.EarthQuake;
 import com.igorgarcia.terremotos.R;
@@ -24,6 +26,8 @@ import java.net.URLConnection;
  */
 public class DownloadEarthQuakeTask extends AsyncTask<String, EarthQuake, Integer> {
 
+    EarthQuakeDB earthQuakeDB=null;
+
     //creamos una interfaz para poder acceder desde fuera
     public interface AddEarthQuakeInterface {
         public void AddEarthQuake(EarthQuake earthquake);
@@ -36,8 +40,12 @@ public class DownloadEarthQuakeTask extends AsyncTask<String, EarthQuake, Intege
 
     private AddEarthQuakeInterface target;
 
-    public DownloadEarthQuakeTask(AddEarthQuakeInterface target) {
+    public DownloadEarthQuakeTask(AddEarthQuakeInterface target,Context context) {
         this.target = target;
+
+
+        earthQuakeDB=new EarthQuakeDB(context);
+
     }
 
     @Override
