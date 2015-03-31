@@ -42,7 +42,7 @@ public class alarma {
 
         //Get	a	reference	to	the	Alarm	Manager
         AlarmManager alarmManager = (AlarmManager)getSystemService(Context.ALARM_SERVICE);
-        
+
 
 
         //Set	the	alarm	to	wake	the	device	if	sleeping.
