@@ -25,12 +25,17 @@
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.igorgarcia.terremotos.activities.MainActivity" />
-
         </activity>
-        <activity android:name=".activities.SettingsActivity"
-            android:label="@string/NombreSettings">
+        <activity
+            android:name=".activities.SettingsActivity"
+            android:label="@string/NombreSettings" >
+        </activity>
 
-            </activity>
+        <service
+            android:name=".servicios.DownloadEarthQuakeService"
+            android:enabled="true"
+            android:exported="true" >
+        </service>
     </application>
 
 </manifest>

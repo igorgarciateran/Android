@@ -15,7 +15,7 @@ import java.util.List;
  * Created by cursomovil on 26/03/15.
  */
 public class SettingsActivity extends PreferenceActivity implements SharedPreferences.OnSharedPreferenceChangeListener {
-
+//saca las preferencias
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

@@ -10,11 +10,11 @@ import android.widget.Toast;
 import com.igorgarcia.terremotos.Model.EarthQuake;
 import com.igorgarcia.terremotos.R;
 import com.igorgarcia.terremotos.Tasks.DownloadEarthQuakeTask;
+import com.igorgarcia.terremotos.servicios.DownloadEarthQuakeService;
 
 
 public class MainActivity extends ActionBarActivity implements DownloadEarthQuakeTask.AddEarthQuakeInterface {
 private int PREFS_ACTIVITY=1;
-
 
     private String EARTHQUAKE = "EARTHQUAKE";
 
@@ -23,7 +23,11 @@ private int PREFS_ACTIVITY=1;
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        downloadEarthQuakes();
+        //downloadEarthQuakes();
+        //cambiamos el de arriba por el servicio
+        downloadEarthQuakesService();
+
+
     }
 
 
@@ -46,6 +50,7 @@ private int PREFS_ACTIVITY=1;
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
 
+            //sacamos las preferencias
             Intent prefsIntent = new Intent (this,SettingsActivity.class);
             startActivityForResult(prefsIntent,PREFS_ACTIVITY);
 
@@ -54,7 +59,6 @@ private int PREFS_ACTIVITY=1;
 
         return super.onOptionsItemSelected(item);
     }
-
 
 /*    @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -81,19 +85,31 @@ private int PREFS_ACTIVITY=1;
         // esto ya no hace falta
 
 
-
-
     }
 
     @Override
     public void NotifyTotal(int Total) {
+
         String msg= getString(R.string.Mensaje,Total);
+        //saca un mensaje
         Toast toast=  Toast.makeText( this,msg + Total, Toast.LENGTH_LONG);
     }
 
+
+    private void downloadEarthQuakesService(){
+        Intent download = new Intent(this, DownloadEarthQuakeService.class);
+        startService(download);
+    }
+
+
     private void downloadEarthQuakes(){
+        //Descargamos los datos de terremotos
         DownloadEarthQuakeTask task =new DownloadEarthQuakeTask(this ,this);
-        task.execute(getString(R.string.earth_quakes_url));
+        task.execute( getString(R.string.earth_quakes_url));
+
+
+
+
     }
 
 

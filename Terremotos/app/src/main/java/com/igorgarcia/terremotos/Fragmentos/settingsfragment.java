@@ -12,7 +12,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.igorgarcia.terremotos.Model.EarthQuake;
 import com.igorgarcia.terremotos.R;
+
+import java.util.ArrayList;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -20,16 +23,20 @@ import com.igorgarcia.terremotos.R;
 public class settingsfragment extends PreferenceFragment implements SharedPreferences.OnSharedPreferenceChangeListener {
 
     private String EARTHQUAKE = "EARTHQUAKE";
+    private ArrayList<EarthQuake> Terremotos;
 
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+
         addPreferencesFromResource(R.xml.userpreferences);
 
         //	Register	this	OnSharedPreferenceChangeListener
         SharedPreferences	prefs	=   PreferenceManager.getDefaultSharedPreferences(getActivity());
         prefs.registerOnSharedPreferenceChangeListener(this);
+
     }
 
 
@@ -48,11 +55,10 @@ public class settingsfragment extends PreferenceFragment implements SharedPrefer
             Log.d(EARTHQUAKE, "Hemos cambiado: " + key + key + " => " + sharedPreferences.getBoolean(getString(R.string.opcion1Key), true));
         } else if(key.equals(Opcion2)){
             //Tiempo de refresco
-            Log.d(EARTHQUAKE, "Hemos cambiado: " + key + key +" => "+  sharedPreferences.getString( getString(R.string.opcion1Key),""));
+            Log.d(EARTHQUAKE, "Hemos cambiado: " + key + key +" => "+  sharedPreferences.getString( getString(R.string.opcion1Key),"0"));
         } else if(key.equals(Opcion3)){
             //Filtrar por magnitud, no hay que hacer nada, se guarda solo
-            Log.d(EARTHQUAKE, "Hemos cambiado: " + key +" => "+  sharedPreferences.getString( getString(R.string.opcion3Key),""));
-
+            Log.d(EARTHQUAKE, "Hemos cambiado: " + key +" => "+  sharedPreferences.getString( getString(R.string.opcion3Key),"0"));
 
         }
     }

@@ -14,6 +14,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.igorgarcia.terremotos.BD.EarthQuakeDB;
 import com.igorgarcia.terremotos.Model.Coordinate;
 import com.igorgarcia.terremotos.Model.EarthQuake;
 import com.igorgarcia.terremotos.R;
@@ -35,17 +36,20 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
 import java.util.ArrayList;
+import java.util.List;
 
 
 public class EarthQuakeFragment extends ListFragment {
 
 
-    ArrayList<EarthQuake> earthQuakes ;
+    private List<EarthQuake> earthQuakes ;
     String EARTHQUAKE = "EARTHQUAKE";
-    private ArrayAdapter<EarthQuake> aa;
+
+    // private ArrayAdapter<EarthQuake> aa;
     private EarthquakeAdapter aa2;
 
     private SharedPreferences Prefs=null;
+    private EarthQuakeDB earthQuakeDB;
 
 
     /**
@@ -62,6 +66,8 @@ public class EarthQuakeFragment extends ListFragment {
         earthQuakes = new ArrayList<EarthQuake>();
 
         Prefs= PreferenceManager.getDefaultSharedPreferences(getActivity());
+
+        earthQuakeDB = new EarthQuakeDB(getActivity());
 
         //downloadEarthQuakes();
 
@@ -96,6 +102,18 @@ public class EarthQuakeFragment extends ListFragment {
     }
 
     @Override
+    public void onResume() {
+        super.onResume();
+
+        int minMag = Integer.parseInt(Prefs.getString(getString(R.string.opcion3Key), "0"));
+
+        earthQuakes.clear();
+        earthQuakes.addAll(earthQuakeDB.listadoXMagnitud(minMag));
+
+        aa2.notifyDataSetChanged();
+    }
+
+    @Override
     public void onListItemClick(ListView l, View v, int position, long id) {
         super.onListItemClick(l, v, position, id);
 
@@ -104,9 +122,6 @@ public class EarthQuakeFragment extends ListFragment {
 
 
     }
-
-
-
 
 
 }

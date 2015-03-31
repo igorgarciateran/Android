@@ -1,7 +1,10 @@
-package com.igorgarcia.terremotos.Tasks;
+package com.igorgarcia.terremotos.servicios;
 
-import android.content.Context;
-import android.os.AsyncTask;
+
+import android.app.Service;
+
+import android.content.Intent;
+import android.os.IBinder;
 import android.util.Log;
 
 import com.igorgarcia.terremotos.BD.EarthQuakeDB;
@@ -21,63 +24,42 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
 
-/**
- * Created by cursomovil on 25/03/15.
- */
-public class DownloadEarthQuakeTask extends AsyncTask<String, EarthQuake, Integer> {
-
-    EarthQuakeDB earthQuakeDB=null;
-
-    //creamos una interfaz para poder acceder desde fuera
-    public interface AddEarthQuakeInterface {
-        public void AddEarthQuake(EarthQuake earthquake);
-
-        public void NotifyTotal(int Total);
-    }
+public class DownloadEarthQuakeService extends Service {
 
 
-    private String EARTHQUAKE = "EARTHQUAKE";
-
-    private AddEarthQuakeInterface target;
-
-    public DownloadEarthQuakeTask(AddEarthQuakeInterface target,Context context) {
-
-        this.target = target;
-        //conectamos con la BD
-        earthQuakeDB=new EarthQuakeDB(context);
-
-
-    }
+    private EarthQuakeDB earthQuakeDB = null;
+    private static String EARTHQUAKE = "EARTHQUAKE";
 
     @Override
-    protected Integer doInBackground(String... urls) {
+    public void onCreate() {
+        super.onCreate();
 
-        //el trabajo que se tiene que ir haciendo => Descargar los datos
-        int cont = 0;
-        if (urls.length > 0) {
-            //Descargar los datos
-            cont = updateEarthQuake(urls[0]);
-        }
-        return cont;
+        earthQuakeDB = new EarthQuakeDB(this);
     }
 
 
     @Override
-    protected void onProgressUpdate(EarthQuake... earthQuakes) {
-        super.onProgressUpdate(earthQuakes);
-        //utilizamos una interfaz para poder pasar datos fuera
-        // target.AddEarthQuake(earthQuakes[0]);
+    public int onStartCommand(Intent intent, int flags, int startId) {
+        super.onStartCommand(intent, flags, startId);
 
+
+        Thread t = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                updateEarthQuake(getString(R.string.earth_quakes_url));
+            }
+        });
+
+        return Service.START_STICKY;
     }
-
 
     @Override
-    protected void onPostExecute(Integer integer) {
-        super.onPostExecute(integer);
-
-        //sacamos un total de los terremotos que hemos bajado
-        target.NotifyTotal(integer);
+    public IBinder onBind(Intent intent) {
+        return null;
     }
+
+
+
 
 
     private int updateEarthQuake(String earthquakeFeed) {
@@ -153,9 +135,6 @@ public class DownloadEarthQuakeTask extends AsyncTask<String, EarthQuake, Intege
             //aa.notifyDataSetChanged();
 
 
-            //es una llamada especial para que se ejecute el evento onprogress update
-            publishProgress(earthQuake);
-
             //lo guardamos en la BD
             earthQuakeDB.insertNewEarthQuake(earthQuake);
 
@@ -163,4 +142,6 @@ public class DownloadEarthQuakeTask extends AsyncTask<String, EarthQuake, Intege
             e.printStackTrace();
         }
     }
+
+
 }

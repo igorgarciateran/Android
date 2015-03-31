@@ -15,6 +15,8 @@ import java.util.List;
 
 /**
  * Created by cursomovil on 26/03/15.
+ *
+ * Adaptador para mostrar los terremotos en pantalla
  */
 public class EarthquakeAdapter extends ArrayAdapter <EarthQuake> {
 
@@ -29,7 +31,7 @@ public class EarthquakeAdapter extends ArrayAdapter <EarthQuake> {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-
+        //Enlazamos los datos con los controles del fragmento
 
         LinearLayout layout= (LinearLayout) convertView;
         if (convertView==null){
@@ -43,12 +45,13 @@ public class EarthquakeAdapter extends ArrayAdapter <EarthQuake> {
             layout=(LinearLayout) convertView;
         }
 
-
         EarthQuake earthQuake=getItem(position);
+
         TextView Magnitud=(TextView) layout.findViewById(R.id.TXTMagnitud);
         TextView Datos=(TextView) layout.findViewById(R.id.TxtDatoarriba);
         TextView Fecha=(TextView) layout.findViewById(R.id.TxtDatoAbajo);
 
+        //enlazamos los controles con los datos
         Magnitud.setText( String.valueOf(earthQuake.getMagnitud()));
         Datos.setText(earthQuake.getPlace());
         Fecha.setText(earthQuake.getTime().toString());

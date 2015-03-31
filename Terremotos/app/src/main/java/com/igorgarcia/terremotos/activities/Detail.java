@@ -5,14 +5,22 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.igorgarcia.terremotos.BD.EarthQuakeDB;
 import com.igorgarcia.terremotos.R;
 
+
 public class Detail extends ActionBarActivity {
+    private EarthQuakeDB earthQuakeDB;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail);
+
+       // earthQuakeDB = new EarthQuakeDB(getActivity());
+
+
     }
 
 
@@ -37,4 +45,5 @@ public class Detail extends ActionBarActivity {
 
         return super.onOptionsItemSelected(item);
     }
+
 }
