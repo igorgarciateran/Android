@@ -1,12 +1,14 @@
 package com.igorgarcia.terremotos.activities;
 
+import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
-
+import com.igorgarcia.terremotos.Alarmas.Alarma;
 import com.igorgarcia.terremotos.Model.EarthQuake;
 import com.igorgarcia.terremotos.R;
 import com.igorgarcia.terremotos.Tasks.DownloadEarthQuakeTask;
@@ -14,7 +16,10 @@ import com.igorgarcia.terremotos.servicios.DownloadEarthQuakeService;
 
 
 public class MainActivity extends ActionBarActivity implements DownloadEarthQuakeTask.AddEarthQuakeInterface {
-private int PREFS_ACTIVITY=1;
+
+    private int PREFS_ACTIVITY = 1;
+
+    private String EARTHQUAKE_PREFS = "Pref_Aplicacion";
 
     private String EARTHQUAKE = "EARTHQUAKE";
 
@@ -25,9 +30,9 @@ private int PREFS_ACTIVITY=1;
 
         //downloadEarthQuakes();
         //cambiamos el de arriba por el servicio
-        downloadEarthQuakesService();
+        //downloadEarthQuakesService();
 
-
+        checkToSetAlarm();
     }
 
 
@@ -35,7 +40,6 @@ private int PREFS_ACTIVITY=1;
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_main, menu);
-
 
         return true;
     }
@@ -51,8 +55,8 @@ private int PREFS_ACTIVITY=1;
         if (id == R.id.action_settings) {
 
             //sacamos las preferencias
-            Intent prefsIntent = new Intent (this,SettingsActivity.class);
-            startActivityForResult(prefsIntent,PREFS_ACTIVITY);
+            Intent prefsIntent = new Intent(this, SettingsActivity.class);
+            startActivityForResult(prefsIntent, PREFS_ACTIVITY);
 
             return true;
         }
@@ -60,12 +64,31 @@ private int PREFS_ACTIVITY=1;
         return super.onOptionsItemSelected(item);
     }
 
-/*    @Override
+    @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         //aqui habria que poner el codigo si queremos hacer algo cuando se cierren las settings
+    }
 
-    }*/
+
+    private void checkToSetAlarm() {
+
+        String KEY = "LAUNCHED_BEFORE";
+
+        SharedPreferences prefs = getSharedPreferences(EARTHQUAKE_PREFS , Activity.MODE_PRIVATE);
+
+        String Opcion2 = getString(R.string.opcion2Key);
+
+        if (!prefs.getBoolean(KEY, false)) {
+            //si entra => es la primera vez que entra en la aplicacion
+
+            int tiempo = getResources().getInteger(R.integer.default_Interval);
+            Alarma.setRepeatingAlarm(this, tiempo, true);
+
+            prefs.edit().putBoolean(KEY, true).apply();
+        }
+
+    }
 
 
     @Override
@@ -90,29 +113,24 @@ private int PREFS_ACTIVITY=1;
     @Override
     public void NotifyTotal(int Total) {
 
-        String msg= getString(R.string.Mensaje,Total);
+        String msg = getString(R.string.Mensaje, Total);
         //saca un mensaje
-        Toast toast=  Toast.makeText( this,msg + Total, Toast.LENGTH_LONG);
+        Toast toast = Toast.makeText(this, msg + Total, Toast.LENGTH_LONG);
     }
 
 
-    private void downloadEarthQuakesService(){
+    private void downloadEarthQuakesService() {
+        //Lanzar servicio descarga de datos
         Intent download = new Intent(this, DownloadEarthQuakeService.class);
         startService(download);
     }
 
 
-    private void downloadEarthQuakes(){
-        //Descargamos los datos de terremotos
-        DownloadEarthQuakeTask task =new DownloadEarthQuakeTask(this ,this);
-        task.execute( getString(R.string.earth_quakes_url));
-
-
-
+    private void downloadEarthQuakes() {
+        //Tarea para descargamos los datos de terremotos
+        DownloadEarthQuakeTask task = new DownloadEarthQuakeTask(this, this);
+        task.execute(getString(R.string.earth_quakes_url));
 
     }
-
-
-
 
 }

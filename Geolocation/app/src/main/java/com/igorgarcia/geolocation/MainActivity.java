@@ -1,32 +1,24 @@
-package com.igorgarcia.terremotos.activities;
+package com.igorgarcia.geolocation;
 
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 
-import com.igorgarcia.terremotos.BD.EarthQuakeDB;
-import com.igorgarcia.terremotos.R;
 
-
-public class Detail extends ActionBarActivity {
-    private EarthQuakeDB earthQuakeDB;
-
+public class MainActivity extends ActionBarActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_detail);
-
-       // earthQuakeDB = new EarthQuakeDB(getActivity());
-
+        setContentView(R.layout.activity_main);
     }
 
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_detail, menu);
+        getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
     }
 
@@ -44,5 +36,4 @@ public class Detail extends ActionBarActivity {
 
         return super.onOptionsItemSelected(item);
     }
-
 }

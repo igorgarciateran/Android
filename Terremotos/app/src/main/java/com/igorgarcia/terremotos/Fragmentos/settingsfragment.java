@@ -30,13 +30,7 @@ public class settingsfragment extends PreferenceFragment implements SharedPrefer
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-
         addPreferencesFromResource(R.xml.userpreferences);
-
-        //	Register	this	OnSharedPreferenceChangeListener
-        SharedPreferences	prefs	=   PreferenceManager.getDefaultSharedPreferences(getActivity());
-        prefs.registerOnSharedPreferenceChangeListener(this);
-
     }
 
 
@@ -45,21 +39,5 @@ public class settingsfragment extends PreferenceFragment implements SharedPrefer
         //SharedPreferences	prefs	=   PreferenceManager.getDefaultSharedPreferences(getActivity());
 
 
-        String Opcion1=getString(R.string.opcion1Key);
-        String Opcion2=getString(R.string.opcion2Key);
-        String Opcion3=getString(R.string.opcion3Key);
-
-
-        if (key.equals(Opcion1)){
-            //Auto refresh
-            Log.d(EARTHQUAKE, "Hemos cambiado: " + key + key + " => " + sharedPreferences.getBoolean(getString(R.string.opcion1Key), true));
-        } else if(key.equals(Opcion2)){
-            //Tiempo de refresco
-            Log.d(EARTHQUAKE, "Hemos cambiado: " + key + key +" => "+  sharedPreferences.getString( getString(R.string.opcion1Key),"0"));
-        } else if(key.equals(Opcion3)){
-            //Filtrar por magnitud, no hay que hacer nada, se guarda solo
-            Log.d(EARTHQUAKE, "Hemos cambiado: " + key +" => "+  sharedPreferences.getString( getString(R.string.opcion3Key),"0"));
-
-        }
     }
 }

@@ -2,6 +2,7 @@
 <resources>
 
     <string-array name="Opcion2_Lista_Titulo">
+        <item>1 minutes</item>
         <item>5 minutes</item>
         <item>10 minutes</item>
         <item>15 minutes</item>
@@ -14,12 +15,13 @@
     <string-array
         name="Opcion2_Lista_Valor">
         <item>1</item>
-        <item>2</item>
-        <item>3</item>
-        <item>4</item>
         <item>5</item>
-        <item>6</item>
-        <item>7</item>
+        <item>10</item>
+        <item>15</item>
+        <item>20</item>
+        <item>25</item>
+        <item>30</item>
+        <item>35</item>
 
     </string-array>
 

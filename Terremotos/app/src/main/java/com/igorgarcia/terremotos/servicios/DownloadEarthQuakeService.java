@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.os.IBinder;
 import android.util.Log;
 
+import com.igorgarcia.terremotos.Alarmas.Alarma;
 import com.igorgarcia.terremotos.BD.EarthQuakeDB;
 import com.igorgarcia.terremotos.Model.Coordinate;
 import com.igorgarcia.terremotos.Model.EarthQuake;
@@ -49,16 +50,17 @@ public class DownloadEarthQuakeService extends Service {
                 updateEarthQuake(getString(R.string.earth_quakes_url));
             }
         });
+        t.start();
 
+        Log.d("EARTHQUAKE", "se bajaron datos");
         return Service.START_STICKY;
     }
+
 
     @Override
     public IBinder onBind(Intent intent) {
         return null;
     }
-
-
 
 
 
