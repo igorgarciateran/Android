@@ -7,14 +7,17 @@ import android.location.LocationManager;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.Menu;
-import android.view.MenuItem;
+
 import android.widget.TextView;
 
-import com.igorgarcia.geolocation.Geolocaclizacion.LocationListenerX;
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.api.GoogleApiClient;
+import com.igorgarcia.geolocation.Geolocaclizacion.GeoGoogleApi;
+import com.igorgarcia.geolocation.Geolocaclizacion.Geolocalizacion2;
 
 
-public class MainActivity extends ActionBarActivity implements LocationListenerX {
+
+public class MainActivity extends ActionBarActivity implements Geolocalizacion2.AddLocationInterface,GoogleApiClient.ConnectionCallbacks,GoogleApiClient.OnConnectionFailedListener {
 
     //Hay que pedir permisos en el manifiesto, sino no funciona
 
@@ -23,7 +26,11 @@ public class MainActivity extends ActionBarActivity implements LocationListenerX
     private TextView lblAltitud;
     private TextView lblVelocidad;
 
-    private LocationManager locationManager = LocationManager;
+    private LocationManager locationManager ;
+    private String bestProvider;
+
+    private boolean conectado=false;
+    private GoogleApiClient googleapiClient;
 
 
 
@@ -33,12 +40,14 @@ public class MainActivity extends ActionBarActivity implements LocationListenerX
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        locationManager = (LocationManager)getSystemService (Context.LOCATION_SERVICE);
 
         lblLatitud = (TextView) findViewById(R.id.LblLatitud);
         lblLongitud = (TextView) findViewById(R.id.LblLongitud);
         lblAltitud = (TextView) findViewById(R.id.LblAltitud);
         lblVelocidad = (TextView) findViewById(R.id.LblVelocidad);
 
+        Log.d("GEO", "Entramos");
 
         getLocationProvider();
         listenLocationChanges();
@@ -48,43 +57,59 @@ public class MainActivity extends ActionBarActivity implements LocationListenerX
 
     private void getLocationProvider() {
 
-        LocationManager locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-
+        //LocationManager locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+        Log.d("GEO", "Entramos get location");
 
         Criteria criterios = new Criteria();
 
-        criterios.setAccuracy(Criteria.ACCURACY_FINE);
+        criterios.setAccuracy(Criteria.ACCURACY_COARSE);
         criterios.setSpeedRequired(true);
         criterios.setAltitudeRequired(true);
 
-
-        String bestProvider = locationManager.getBestProvider(criterios, true);
+        //provider = locationManager.getBestProvider(criteria, true);
+         bestProvider = locationManager.getBestProvider(criterios, true);
 
         Log.d("GEO", bestProvider);
     }
 
 
     private void listenLocationChanges(){
-
-
         int t= 5000;
         int distance=5;
 
-        LocationListenerX listener= new LocationListenerX (this);
+        Log.d("GEO", "listenlocationchanges");
 
+        Geolocalizacion2 listener= new Geolocalizacion2 (this);
 
-        locationManager=requesLocationUpdates(provider,t,distance,listener);
-
+        locationManager.requestLocationUpdates(bestProvider, t, distance, listener);
     }
-
 
 
     @Override
     public void AddLocation(Location location){
-        lblLatitud.setText(String.valueOf(location.getLatitude));
+        Log.d("GEO", "addlocation");
+
+        lblLatitud.setText(String.valueOf(location.getLatitude()));
+        lblLongitud.setText(String.valueOf(location.getLongitude()));
+        lblVelocidad.setText(String.valueOf(location.getSpeed()));
+        lblAltitud.setText(String.valueOf(location.getAltitude()));
+    }
+
+
+    @Override
+    public void onConnected(Bundle bundle) {
 
     }
 
+    @Override
+    public void onConnectionSuspended(int i) {
+
+    }
+
+    @Override
+    public void onConnectionFailed(ConnectionResult connectionResult) {
+
+    }
 
 
 }
