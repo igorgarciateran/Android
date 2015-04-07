@@ -99,6 +99,10 @@ public class MainActivity extends ActionBarActivity implements Geolocalizacion2.
     @Override
     public void onConnected(Bundle bundle) {
 
+        if (mRequestingLocationUpdates) {
+            startLocationUpdates();
+        }
+
     }
 
     @Override
