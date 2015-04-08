@@ -40,6 +40,8 @@ public class DownloadEarthQuakeTask extends AsyncTask<String, EarthQuake, Intege
 
     private AddEarthQuakeInterface target;
 
+
+
     public DownloadEarthQuakeTask(AddEarthQuakeInterface target,Context context) {
 
         this.target = target;
