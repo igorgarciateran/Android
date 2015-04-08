@@ -5,13 +5,12 @@ android {
     buildToolsVersion "21.1.2"
 
     defaultConfig {
-        applicationId "com.igorgarcia.terremotos"
+        applicationId "com.igorgarcia.mapas"
         minSdkVersion 15
         targetSdkVersion 21
         versionCode 1
         versionName "1.0"
     }
-
     buildTypes {
         release {
             minifyEnabled false

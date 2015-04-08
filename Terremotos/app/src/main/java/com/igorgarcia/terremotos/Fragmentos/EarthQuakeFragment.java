@@ -6,6 +6,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.app.ListFragment;
 import android.preference.PreferenceManager;
+import android.support.annotation.NonNull;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,7 +18,7 @@ import android.widget.Toast;
 import com.igorgarcia.terremotos.BD.EarthQuakeDB;
 import com.igorgarcia.terremotos.Model.Coordinate;
 import com.igorgarcia.terremotos.Model.EarthQuake;
-import com.igorgarcia.terremotos.R;
+import com.igorgarcia.terremotos.R ;
 
 import com.igorgarcia.terremotos.Fragmentos.dummy.DummyContent;
 import com.igorgarcia.terremotos.Tasks.DownloadEarthQuakeTask;
@@ -36,14 +37,18 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Iterator;
 import java.util.List;
+import java.util.ListIterator;
 
 
 public class EarthQuakeFragment extends ListFragment {
 
-
     private List<EarthQuake> earthQuakes ;
+
     String EARTHQUAKE = "EARTHQUAKE";
+    String EARTHQUAKE_KEY = "EARTHQUAKE_KEY";
 
     // private ArrayAdapter<EarthQuake> aa;
     private EarthquakeAdapter aa2;
@@ -105,7 +110,11 @@ public class EarthQuakeFragment extends ListFragment {
     public void onResume() {
         super.onResume();
 
-        int minMag = Integer.parseInt(Prefs.getString(getString(R.string.opcion3Key), "0"));
+
+        earthQuakes = new ArrayList<EarthQuake>();
+
+
+        int minMag = Integer.parseInt(Prefs.getString(getString( R.string.opcion3Key), "0"));
 
         earthQuakes.clear();
         earthQuakes.addAll(earthQuakeDB.listadoXMagnitud(minMag));
@@ -117,10 +126,14 @@ public class EarthQuakeFragment extends ListFragment {
     public void onListItemClick(ListView l, View v, int position, long id) {
         super.onListItemClick(l, v, position, id);
 
+        EarthQuake earthQuake = earthQuakes.get(position);
+
         //para abrir los datos de un terremoto cuando se pulsa sobre el
        // Intent detailIntent = new Intent(getActivity(),Detail.class);
 
-
+        Intent nuevoIntent= new Intent (getActivity(),detalleTerremoto.class);
+        nuevoIntent.putExtra(EARTHQUAKE_KEY,earthQuake.get_id());
+        startActivity(nuevoIntent);
     }
 
 

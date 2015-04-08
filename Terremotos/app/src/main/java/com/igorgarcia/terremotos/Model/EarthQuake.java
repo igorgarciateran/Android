@@ -10,20 +10,16 @@ public class EarthQuake {
 
     private String _id;
     private String place;
-
     private Coordinate coords;
     private double magnitud;
-
     private Date time;
     private String url;
+
+
 
     public String getUrl() {
         return url;
     }
-
-
-
-
 
     public void setUrl(String url) {
         this.url = url;

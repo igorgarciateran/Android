@@ -22,7 +22,7 @@ public class GeoGoogleApi {
 
 
     protected void startLocationUpdates() {
-        LocationServices.FusedLocationApi.requestLocationUpdates(mGoogleApiClient,mLocationRequest,this);
+        LocationServices.FusedLocationApi.requestLocationUpdates(mGoogleApiClient  , mLocationRequest, this);
     }
 
 
