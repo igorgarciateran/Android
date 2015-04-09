@@ -22,6 +22,7 @@ import com.igorgarcia.terremotos.R ;
 
 import com.igorgarcia.terremotos.Fragmentos.dummy.DummyContent;
 import com.igorgarcia.terremotos.Tasks.DownloadEarthQuakeTask;
+import com.igorgarcia.terremotos.activities.Detail;
 import com.igorgarcia.terremotos.activities.MainActivity;
 import com.igorgarcia.terremotos.adapter.EarthquakeAdapter;
 
@@ -53,7 +54,7 @@ public class EarthQuakeFragment extends ListFragment {
     // private ArrayAdapter<EarthQuake> aa;
     private EarthquakeAdapter aa2;
 
-    private SharedPreferences Prefs=null;
+    private SharedPreferences prefs=null;
     private EarthQuakeDB earthQuakeDB;
 
 
@@ -70,7 +71,7 @@ public class EarthQuakeFragment extends ListFragment {
 
         earthQuakes = new ArrayList<EarthQuake>();
 
-        Prefs= PreferenceManager.getDefaultSharedPreferences(getActivity());
+        prefs= PreferenceManager.getDefaultSharedPreferences(getActivity());
 
         earthQuakeDB = new EarthQuakeDB(getActivity());
 
@@ -100,6 +101,18 @@ public class EarthQuakeFragment extends ListFragment {
        // aa=new ArrayAdapter<EarthQuake>( getActivity(), android.R.layout.simple_list_item_1,earthQuakes);
        // setListAdapter(aa);
 
+        //SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getActivity());
+
+        String Opcion3 = getString(R.string.opcion3Key);
+
+        String magnitud =prefs.getString(Opcion3, "0");
+
+        //earthQuakeDB = new EarthQuakeDB(getActivity());
+
+
+        earthQuakes=earthQuakeDB.listadoXMagnitud(Integer.parseInt(magnitud) );
+
+
         aa2=new EarthquakeAdapter(getActivity(),R.layout.layoutterremoto,earthQuakes);
         setListAdapter(aa2);
 
@@ -114,7 +127,7 @@ public class EarthQuakeFragment extends ListFragment {
         earthQuakes = new ArrayList<EarthQuake>();
 
 
-        int minMag = Integer.parseInt(Prefs.getString(getString( R.string.opcion3Key), "0"));
+        int minMag = Integer.parseInt(prefs.getString(getString( R.string.opcion3Key), "0"));
 
         earthQuakes.clear();
         earthQuakes.addAll(earthQuakeDB.listadoXMagnitud(minMag));
@@ -131,7 +144,7 @@ public class EarthQuakeFragment extends ListFragment {
         //para abrir los datos de un terremoto cuando se pulsa sobre el
        // Intent detailIntent = new Intent(getActivity(),Detail.class);
 
-        Intent nuevoIntent= new Intent (getActivity(),detalleTerremoto.class);
+        Intent nuevoIntent= new Intent (getActivity(),Detail.class);
         nuevoIntent.putExtra(EARTHQUAKE_KEY,earthQuake.get_id());
         startActivity(nuevoIntent);
     }

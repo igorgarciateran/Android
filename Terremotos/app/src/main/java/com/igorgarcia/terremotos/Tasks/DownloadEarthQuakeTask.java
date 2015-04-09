@@ -70,6 +70,7 @@ public class DownloadEarthQuakeTask extends AsyncTask<String, EarthQuake, Intege
         //utilizamos una interfaz para poder pasar datos fuera
         // target.AddEarthQuake(earthQuakes[0]);
 
+        Log.d(EARTHQUAKE,"Progress update");
     }
 
 
@@ -114,6 +115,8 @@ public class DownloadEarthQuakeTask extends AsyncTask<String, EarthQuake, Intege
                     //Saca los datos del JSON y los pasa en un objeto para tratarlo en onProgressUpdate
                     processEarthQuakeTask(earthquakes.getJSONObject(i));
                 }
+
+                Log.d(EARTHQUAKE,"Actualizados " + contador );
             }
 
         } catch (MalformedURLException e) {
@@ -149,7 +152,7 @@ public class DownloadEarthQuakeTask extends AsyncTask<String, EarthQuake, Intege
             earthQuake.setUrl(properties.getString("url"));
             earthQuake.setCoords(coords);
 
-            Log.d(EARTHQUAKE, earthQuake.toString());
+            //Log.d(EARTHQUAKE, earthQuake.toString());
 
             //earthQuakes.add(0,earthQuake);
             //aa.notifyDataSetChanged();

@@ -64,6 +64,11 @@ public class EarthQuake {
         return magnitud;
     }
 
+    public String getMagnitudString() {
+        return Double.toString(magnitud) ;
+    }
+
+
     public void setMagnitud(double magnitud) {
         this.magnitud = magnitud;
     }

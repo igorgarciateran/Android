@@ -73,6 +73,8 @@ public class MainActivity extends ActionBarActivity implements DownloadEarthQuak
 
     private void checkToSetAlarm() {
 
+        // Es para poner una alarma periodica para bajar los terremotos
+
         String KEY = "LAUNCHED_BEFORE";
 
         SharedPreferences prefs = getSharedPreferences(EARTHQUAKE_PREFS , Activity.MODE_PRIVATE);
@@ -90,25 +92,6 @@ public class MainActivity extends ActionBarActivity implements DownloadEarthQuak
 
     }
 
-
-    @Override
-    public void AddEarthQuake(EarthQuake earthquake) {
-
-  /*      //Solo dibujamos los mayores que el filtro
-        double minMag=Double.parseDouble(Prefs.getString(getString(R.string.opcion3Key), ""));
-
-        if (earthquake.getMagnitud()>=minMag) {
-
-            earthQuakes.add(0, earthquake);
-            //aa.notifyDataSetChanged();
-
-            aa2.notifyDataSetChanged();
-
-        }*/
-        // esto ya no hace falta
-
-
-    }
 
     @Override
     public void NotifyTotal(int Total) {
@@ -132,5 +115,26 @@ public class MainActivity extends ActionBarActivity implements DownloadEarthQuak
         task.execute(getString(R.string.earth_quakes_url));
 
     }
+
+
+      @Override
+    public void AddEarthQuake(EarthQuake earthquake) {
+
+  /*      //Solo dibujamos los mayores que el filtro
+        double minMag=Double.parseDouble(Prefs.getString(getString(R.string.opcion3Key), ""));
+
+        if (earthquake.getMagnitud()>=minMag) {
+
+            earthQuakes.add(0, earthquake);
+            //aa.notifyDataSetChanged();
+
+            aa2.notifyDataSetChanged();
+
+        }*//*
+        // esto ya no hace falta
+ */
+
+    }
+
 
 }

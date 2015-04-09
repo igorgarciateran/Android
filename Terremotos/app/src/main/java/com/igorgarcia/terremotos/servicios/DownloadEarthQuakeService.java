@@ -96,6 +96,8 @@ public class DownloadEarthQuakeService extends Service {
                     //Saca los datos del JSON y los pasa en un objeto para tratarlo en onProgressUpdate
                     processEarthQuakeTask(earthquakes.getJSONObject(i));
                 }
+                Log.d(EARTHQUAKE,"Actualizados " + contador );
+
             }
 
         } catch (MalformedURLException e) {
@@ -131,7 +133,7 @@ public class DownloadEarthQuakeService extends Service {
             earthQuake.setUrl(properties.getString("url"));
             earthQuake.setCoords(coords);
 
-            Log.d(EARTHQUAKE, earthQuake.toString());
+           // Log.d(EARTHQUAKE, earthQuake.toString());
 
             //earthQuakes.add(0,earthQuake);
             //aa.notifyDataSetChanged();
