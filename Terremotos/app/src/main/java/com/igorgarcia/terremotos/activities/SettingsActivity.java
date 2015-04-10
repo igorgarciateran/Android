@@ -10,10 +10,8 @@ import android.view.View;
 import android.widget.ListView;
 
 import com.igorgarcia.terremotos.Alarmas.Alarma;
-import com.igorgarcia.terremotos.Fragmentos.settingsfragment;
+import com.igorgarcia.terremotos.Fragmentos.SettingsFragment;
 import com.igorgarcia.terremotos.R;
-
-import java.util.List;
 
 /**
  * Created by cursomovil on 26/03/15.
@@ -39,7 +37,7 @@ public class SettingsActivity extends PreferenceActivity implements SharedPrefer
 
         getFragmentManager()
             .beginTransaction()
-            .replace(android.R.id.content, new settingsfragment())
+            .replace(android.R.id.content, new SettingsFragment())
             .commit();
 
     }
@@ -108,7 +106,7 @@ public class SettingsActivity extends PreferenceActivity implements SharedPrefer
         Log.d(EARTHQUAKE,"Elemento pulsado");
 
 
-        Intent detalle = new Intent (this,Detail.class);
+        Intent detalle = new Intent (this,DetailActivity.class);
         startActivity(detalle);
     }
 }

@@ -103,7 +103,7 @@ public class EarthQuakeDB {
 
     public List<EarthQuake> ListadoXID(String ID) {
 
-        String where = Key_Terremoto_id + " >= ?";
+        String where = Key_Terremoto_id + " = ?";
         String[] whereArgs = {
                 String.valueOf(ID)
         };

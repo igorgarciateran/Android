@@ -10,11 +10,10 @@ import android.widget.TextView;
 
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapFragment;
-import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.igorgarcia.terremotos.BD.EarthQuakeDB;
-import com.igorgarcia.terremotos.Fragmentos.detalleTerremoto;
+import com.igorgarcia.terremotos.Fragmentos.EarthQuakeMapFragment;
 import com.igorgarcia.terremotos.Model.EarthQuake;
 import com.igorgarcia.terremotos.R;
 
@@ -22,15 +21,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class Detail extends ActionBarActivity {
+public class DetailActivity extends ActionBarActivity {
 
     private String EARTHQUAKE = "EARTHQUAKE";
     String EARTHQUAKE_KEY = "EARTHQUAKE_KEY";
     private EarthQuakeDB earthQuakeDB;
-
-    private detalleTerremoto mapFragment;
-
-
+    private EarthQuakeMapFragment mapFragment;
     private GoogleMap mMap; // Might be null if Google Play services APK is not available.
 
 
@@ -39,52 +35,50 @@ public class Detail extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail);
 
-       // earthQuakeDB = new EarthQuakeDB(getActivity());
-
         //cogemos el enlace al mapa
-        mapFragment =(detalleTerremoto)getFragmentManager().findFragmentById(R.id.mapa);
-
+        mapFragment =(EarthQuakeMapFragment)getFragmentManager().findFragmentById(R.id.map_fragment);
 
         earthQuakeDB = new EarthQuakeDB(getApplicationContext());
 
-        Intent nuevoIntent= getIntent();
+        Intent nuevoIntent = getIntent();
 
         String id = nuevoIntent.getStringExtra(EARTHQUAKE_KEY);
 
         List<EarthQuake> resultados;
 
-        TextView  TxtMagnitud = (TextView) findViewById(R.id.txtMagnitud);
-        TextView  TxtTexto = (TextView) findViewById(R.id.txtTexto);
-        TextView  TxtEnlace = (TextView) findViewById(R.id.txtEnlace);
+        TextView TxtMagnitud = (TextView) findViewById(R.id.txtMagnitud);
+        TextView TxtTexto = (TextView) findViewById(R.id.txtTexto);
+        TextView TxtEnlace = (TextView) findViewById(R.id.txtEnlace);
         //TextView  mMap = (TextView) findViewById(R.id.mapa);
 
-        resultados=earthQuakeDB.ListadoXID(id);
-        if (resultados.size()>0) {
+        resultados = earthQuakeDB.ListadoXID(id);
+        if (resultados.size() > 0) {
             EarthQuake terre = resultados.get(0);
-            setUpMapIfNeeded(terre);
+            // setUpMapIfNeeded(terre);
+            try {
+                TxtMagnitud.setText(terre.getMagnitudString());
+                TxtTexto.setText(terre.getPlace());
+                TxtEnlace.setText(terre.getPlace());
 
-            TxtMagnitud.setText( terre.getMagnitudString());
-            TxtTexto.setText(terre.getPlace());
-            TxtEnlace.setText(terre.getUrl());
+                mapFragment.setEartQuakes(resultados);
 
+            } catch (Exception ex) {
+                Log.d(EARTHQUAKE, ex.getMessage());
+            }
 
-
-        }else{
+        } else {
             Log.d(EARTHQUAKE, "Error, no hay resultados de la BD");
         }
-
     }
 
 
-    private void showMap(EarthQuake earthQuake){
+    private void showMap(EarthQuake earthQuake) {
         //muestra un punto en el mapa con la funcion que hemos creado en el fragmento, reutilizable
         List<EarthQuake> earthQuakes = new ArrayList<EarthQuake>();
         earthQuakes.add(earthQuake);
 
-
-        mapFragment.pintarTerremotos(earthQuakes);
+        //mapFragment.pintarTerremotos(earthQuakes);
     }
-
 
 
     @Override
@@ -110,20 +104,18 @@ public class Detail extends ActionBarActivity {
     }
 
 
-
-
-    private void setUpMapIfNeeded(EarthQuake terremoto) {
-        // Do a null check to confirm that we have not already instantiated the map.
-        if (mMap == null) {
-            // Try to obtain the map from the SupportMapFragment.
-            mMap = ((MapFragment) getFragmentManager().findFragmentById(R.id.fragment2))
-                    .getMap();
-            // Check if we were successful in obtaining the map.
-            if (mMap != null) {
-                setUpMap(terremoto);
-            }
-        }
-    }
+//    private void setUpMapIfNeeded(EarthQuake terremoto) {
+//        // Do a null check to confirm that we have not already instantiated the map.
+//        if (mMap == null) {
+//            // Try to obtain the map from the SupportMapFragment.
+//            mMap = ((MapFragment) getFragmentManager().findFragmentById(R.id.mapa))
+//                    .getMap();
+//            // Check if we were successful in obtaining the map.
+//            if (mMap != null) {
+//                setUpMap(terremoto);
+//            }
+//        }
+//    }
 
     /**
      * This is where we can add markers or lines, add listeners or move the camera. In this case, we
@@ -131,12 +123,10 @@ public class Detail extends ActionBarActivity {
      * <p/>
      * This should only be called once and when we are sure that {@link #mMap} is not null.
      */
-    private void setUpMap(EarthQuake terremoto) {
-
-        mMap.addMarker(new MarkerOptions().position(new LatLng(terremoto.getCoords().getLng(), terremoto.getCoords().getLat ())).title("Marker"));
-    }
-
-
+//    private void setUpMap(EarthQuake terremoto) {
+//
+//        mMap.addMarker(new MarkerOptions().position(new LatLng(terremoto.getCoords().getLng(), terremoto.getCoords().getLat())).title("Marker"));
+//    }
 
 
 }

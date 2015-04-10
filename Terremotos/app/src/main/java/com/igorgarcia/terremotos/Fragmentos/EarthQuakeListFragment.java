@@ -1,50 +1,27 @@
 package com.igorgarcia.terremotos.Fragmentos;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.app.ListFragment;
 import android.preference.PreferenceManager;
-import android.support.annotation.NonNull;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import com.igorgarcia.terremotos.BD.EarthQuakeDB;
-import com.igorgarcia.terremotos.Model.Coordinate;
 import com.igorgarcia.terremotos.Model.EarthQuake;
 import com.igorgarcia.terremotos.R ;
 
-import com.igorgarcia.terremotos.Fragmentos.dummy.DummyContent;
-import com.igorgarcia.terremotos.Tasks.DownloadEarthQuakeTask;
-import com.igorgarcia.terremotos.activities.Detail;
-import com.igorgarcia.terremotos.activities.MainActivity;
+import com.igorgarcia.terremotos.activities.DetailActivity;
 import com.igorgarcia.terremotos.adapter.EarthquakeAdapter;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.net.URLConnection;
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Iterator;
 import java.util.List;
-import java.util.ListIterator;
 
 
-public class EarthQuakeFragment extends ListFragment {
+public class EarthQuakeListFragment extends ListFragment {
 
     private List<EarthQuake> earthQuakes ;
 
@@ -62,7 +39,7 @@ public class EarthQuakeFragment extends ListFragment {
      * Mandatory empty constructor for the fragment manager to instantiate the
      * fragment (e.g. upon screen orientation changes).
      */
-    public EarthQuakeFragment() {
+    public EarthQuakeListFragment() {
     }
 
     @Override
@@ -113,7 +90,7 @@ public class EarthQuakeFragment extends ListFragment {
         earthQuakes=earthQuakeDB.listadoXMagnitud(Integer.parseInt(magnitud) );
 
 
-        aa2=new EarthquakeAdapter(getActivity(),R.layout.layoutterremoto,earthQuakes);
+        aa2=new EarthquakeAdapter(getActivity(),R.layout.earthquake_list_row,earthQuakes);
         setListAdapter(aa2);
 
         return layout;
@@ -144,7 +121,7 @@ public class EarthQuakeFragment extends ListFragment {
         //para abrir los datos de un terremoto cuando se pulsa sobre el
        // Intent detailIntent = new Intent(getActivity(),Detail.class);
 
-        Intent nuevoIntent= new Intent (getActivity(),Detail.class);
+        Intent nuevoIntent= new Intent (getActivity(),DetailActivity.class);
         nuevoIntent.putExtra(EARTHQUAKE_KEY,earthQuake.get_id());
         startActivity(nuevoIntent);
     }

@@ -1,5 +1,6 @@
 package com.igorgarcia.terremotos.activities;
 
+import android.app.ActionBar;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -7,21 +8,28 @@ import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.Window;
 import android.widget.Toast;
+
 import com.igorgarcia.terremotos.Alarmas.Alarma;
+import com.igorgarcia.terremotos.Fragmentos.EarthQuakeListFragment;
+import com.igorgarcia.terremotos.Fragmentos.EarthQuakeMapFragment;
+import com.igorgarcia.terremotos.ListenerPestanyas.TabListener;
 import com.igorgarcia.terremotos.Model.EarthQuake;
+import com.igorgarcia.terremotos.Model.MiActionBar;
 import com.igorgarcia.terremotos.R;
 import com.igorgarcia.terremotos.Tasks.DownloadEarthQuakeTask;
 import com.igorgarcia.terremotos.servicios.DownloadEarthQuakeService;
 
 
-public class MainActivity extends ActionBarActivity implements DownloadEarthQuakeTask.AddEarthQuakeInterface {
+public class MainActivity extends Activity implements DownloadEarthQuakeTask.AddEarthQuakeInterface {
 
     private int PREFS_ACTIVITY = 1;
-
     private String EARTHQUAKE_PREFS = "Pref_Aplicacion";
-
     private String EARTHQUAKE = "EARTHQUAKE";
+
+    ActionBar actionBar;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,6 +39,38 @@ public class MainActivity extends ActionBarActivity implements DownloadEarthQuak
         //downloadEarthQuakes();
         //cambiamos el de arriba por el servicio
         //downloadEarthQuakesService();
+
+
+        actionBar = getActionBar();
+
+        actionBar.setTitle("Titulo");
+        actionBar.setSubtitle("subtitulo");
+        actionBar.setDisplayShowTitleEnabled(true);
+
+        actionBar.setHomeButtonEnabled(true);
+
+        //modo con pestañas
+        actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
+
+        //Creamos las pestañas
+        ActionBar.Tab tabOne = actionBar.newTab();
+        ActionBar.Tab tabtwo = actionBar.newTab();
+
+        tabOne.setText("Primera")
+
+                //.setIcon(R.drawable.ic_launcher)
+                //.setContentDescription("Segunda”)
+                .setTabListener(
+                        new TabListener<EarthQuakeListFragment>
+                                (this, R.id.fragmentContainer, EarthQuakeListFragment.class));
+        actionBar.addTab(tabOne);
+
+        tabtwo.setText("Segunda")
+
+                .setTabListener(
+                        new TabListener<EarthQuakeMapFragment>
+                                (this, R.id.fragmentContainer, EarthQuakeMapFragment.class));
+        actionBar.addTab(tabtwo);
 
         checkToSetAlarm();
     }
@@ -52,14 +92,28 @@ public class MainActivity extends ActionBarActivity implements DownloadEarthQuak
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
 
-            //sacamos las preferencias
-            Intent prefsIntent = new Intent(this, SettingsActivity.class);
-            startActivityForResult(prefsIntent, PREFS_ACTIVITY);
+        switch (id) {
+            case (android.R.id.home):
 
-            return true;
+                Intent intent = new Intent(this, ActionBarActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(intent);
+                //return true;
+                break;
+
+            case (R.id.action_settings):
+                //sacamos las preferencias
+                Intent prefsIntent = new Intent(this, SettingsActivity.class);
+                startActivityForResult(prefsIntent, PREFS_ACTIVITY);
+
+                //return true;
+                break;
+
+            default:
+                return super.onOptionsItemSelected(item);
         }
+
 
         return super.onOptionsItemSelected(item);
     }
@@ -77,7 +131,7 @@ public class MainActivity extends ActionBarActivity implements DownloadEarthQuak
 
         String KEY = "LAUNCHED_BEFORE";
 
-        SharedPreferences prefs = getSharedPreferences(EARTHQUAKE_PREFS , Activity.MODE_PRIVATE);
+        SharedPreferences prefs = getSharedPreferences(EARTHQUAKE_PREFS, Activity.MODE_PRIVATE);
 
         String Opcion2 = getString(R.string.opcion2Key);
 
@@ -117,7 +171,7 @@ public class MainActivity extends ActionBarActivity implements DownloadEarthQuak
     }
 
 
-      @Override
+    @Override
     public void AddEarthQuake(EarthQuake earthquake) {
 
   /*      //Solo dibujamos los mayores que el filtro
