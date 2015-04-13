@@ -1,7 +1,7 @@
 package com.igorgarcia.terremotos.activities;
 
+import android.app.Activity;
 import android.content.Intent;
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -21,13 +21,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class DetailActivity extends ActionBarActivity {
+public class DetailActivity extends Activity {
 
     private String EARTHQUAKE = "EARTHQUAKE";
     String EARTHQUAKE_KEY = "EARTHQUAKE_KEY";
     private EarthQuakeDB earthQuakeDB;
     private EarthQuakeMapFragment mapFragment;
     private GoogleMap mMap; // Might be null if Google Play services APK is not available.
+
+
 
 
     @Override
@@ -38,18 +40,29 @@ public class DetailActivity extends ActionBarActivity {
         //cogemos el enlace al mapa
         mapFragment =(EarthQuakeMapFragment)getFragmentManager().findFragmentById(R.id.map_fragment);
 
+
         earthQuakeDB = new EarthQuakeDB(getApplicationContext());
-
-        Intent nuevoIntent = getIntent();
-
-        String id = nuevoIntent.getStringExtra(EARTHQUAKE_KEY);
-
-        List<EarthQuake> resultados;
-
-        TextView TxtMagnitud = (TextView) findViewById(R.id.txtMagnitud);
-        TextView TxtTexto = (TextView) findViewById(R.id.txtTexto);
-        TextView TxtEnlace = (TextView) findViewById(R.id.txtEnlace);
+//        private Intent nuevoIntent = getIntent();
+//        private String id = nuevoIntent.getStringExtra(EARTHQUAKE_KEY);
+//        private List<EarthQuake> resultados;
+//        private  TextView TxtMagnitud = (TextView) findViewById(R.id.txtMagnitud);
+//        private TextView TxtTexto = (TextView) findViewById(R.id.txtTexto);
+//        private  TextView TxtEnlace = (TextView) findViewById(R.id.txtEnlace);
         //TextView  mMap = (TextView) findViewById(R.id.mapa);
+            sacarDatos();
+
+    }
+
+
+
+    private void sacarDatos(){
+
+         Intent nuevoIntent = getIntent();
+         String id = nuevoIntent.getStringExtra(EARTHQUAKE_KEY);
+         List<EarthQuake> resultados;
+          TextView TxtMagnitud = (TextView) findViewById(R.id.txtMagnitud);
+         TextView TxtTexto = (TextView) findViewById(R.id.txtTexto);
+          TextView TxtEnlace = (TextView) findViewById(R.id.txtEnlace);
 
         resultados = earthQuakeDB.ListadoXID(id);
         if (resultados.size() > 0) {
@@ -69,7 +82,9 @@ public class DetailActivity extends ActionBarActivity {
         } else {
             Log.d(EARTHQUAKE, "Error, no hay resultados de la BD");
         }
+
     }
+
 
 
     private void showMap(EarthQuake earthQuake) {

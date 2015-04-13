@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.ListView;
 
 import com.igorgarcia.terremotos.BD.EarthQuakeDB;
+import com.igorgarcia.terremotos.Fragmentos.Abstractas.AbstractMapFragment;
 import com.igorgarcia.terremotos.Model.EarthQuake;
 import com.igorgarcia.terremotos.R ;
 
@@ -21,7 +22,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class EarthQuakeListFragment extends ListFragment {
+public class EarthQuakeListFragment extends AbstractMapFragment {
 
     private List<EarthQuake> earthQuakes ;
 
@@ -47,9 +48,7 @@ public class EarthQuakeListFragment extends ListFragment {
         super.onCreate(savedInstanceState);
 
         earthQuakes = new ArrayList<EarthQuake>();
-
         prefs= PreferenceManager.getDefaultSharedPreferences(getActivity());
-
         earthQuakeDB = new EarthQuakeDB(getActivity());
 
         //downloadEarthQuakes();
@@ -77,22 +76,17 @@ public class EarthQuakeListFragment extends ListFragment {
 
        // aa=new ArrayAdapter<EarthQuake>( getActivity(), android.R.layout.simple_list_item_1,earthQuakes);
        // setListAdapter(aa);
-
         //SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getActivity());
 
         String Opcion3 = getString(R.string.opcion3Key);
-
         String magnitud =prefs.getString(Opcion3, "0");
 
         //earthQuakeDB = new EarthQuakeDB(getActivity());
 
-
         earthQuakes=earthQuakeDB.listadoXMagnitud(Integer.parseInt(magnitud) );
-
 
         aa2=new EarthquakeAdapter(getActivity(),R.layout.earthquake_list_row,earthQuakes);
         setListAdapter(aa2);
-
         return layout;
     }
 
@@ -100,9 +94,7 @@ public class EarthQuakeListFragment extends ListFragment {
     public void onResume() {
         super.onResume();
 
-
         earthQuakes = new ArrayList<EarthQuake>();
-
 
         int minMag = Integer.parseInt(prefs.getString(getString( R.string.opcion3Key), "0"));
 
@@ -125,6 +117,20 @@ public class EarthQuakeListFragment extends ListFragment {
         nuevoIntent.putExtra(EARTHQUAKE_KEY,earthQuake.get_id());
         startActivity(nuevoIntent);
     }
+
+    @Override
+    protected void getData() {
+
+
+    }
+
+    @Override
+    protected void showMap() {
+
+    }
+
+
+
 
 
 }
