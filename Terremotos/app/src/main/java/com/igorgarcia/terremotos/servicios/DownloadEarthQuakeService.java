@@ -1,6 +1,9 @@
 package com.igorgarcia.terremotos.servicios;
 
 
+import android.app.Notification;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.app.Service;
 
 import android.content.Intent;
@@ -12,6 +15,7 @@ import com.igorgarcia.terremotos.BD.EarthQuakeDB;
 import com.igorgarcia.terremotos.Model.Coordinate;
 import com.igorgarcia.terremotos.Model.EarthQuake;
 import com.igorgarcia.terremotos.R;
+import com.igorgarcia.terremotos.activities.MainActivity;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -98,6 +102,7 @@ public class DownloadEarthQuakeService extends Service {
                 }
                 Log.d(EARTHQUAKE,"Actualizados " + contador );
 
+                sendNotification(contador);
             }
 
         } catch (MalformedURLException e) {
@@ -133,8 +138,6 @@ public class DownloadEarthQuakeService extends Service {
             earthQuake.setUrl(properties.getString("url"));
             earthQuake.setCoords(coords);
 
-           // Log.d(EARTHQUAKE, earthQuake.toString());
-
             //earthQuakes.add(0,earthQuake);
             //aa.notifyDataSetChanged();
 
@@ -147,5 +150,39 @@ public class DownloadEarthQuakeService extends Service {
         }
     }
 
+
+    private void sendNotification (int cont){
+
+        //muestra un aviso en la barra
+
+        Intent intentToFire=new Intent(this, MainActivity.class);
+        PendingIntent activityIntent = PendingIntent.getActivity(this,0,intentToFire,0);
+
+        Notification.Builder builder= new Notification.Builder(DownloadEarthQuakeService.this );
+
+        builder.setSmallIcon (R.drawable.ic_launcher)
+        .setContentTitle(getString(R.string.app_name))
+                .setTicker("Notification")
+                .setWhen(System.currentTimeMillis())
+                .setContentTitle("Terremotos " + cont + " procesados")
+                .setOngoing(true)
+                .setOnlyAlertOnce(true)
+                .setContentIntent(activityIntent);
+
+
+
+
+
+        //.setProgress(100, 75, false)
+        //.setContent(myRemoteView)
+
+        Notification	notification	=	builder.getNotification();
+        NotificationManager notificationManager=(NotificationManager)getSystemService(NOTIFICATION_SERVICE);
+        int NOTIFICATION_REF=1;
+        notificationManager.notify(NOTIFICATION_REF,notification);
+
+
+
+    }
 
 }

@@ -38,7 +38,8 @@ public class EarthQuakeMapFragment extends AbstractMapFragment implements Google
     private List<EarthQuake> earthQuakes;
 
     private SharedPreferences prefs=null;
-
+    private EarthQuake earthQuake;
+    String EARTHQUAKE_KEY = "EARTHQUAKE_KEY";
 
 
     //private EarthQuakeDB earthQuakeDB;
@@ -67,7 +68,7 @@ public class EarthQuakeMapFragment extends AbstractMapFragment implements Google
     }*/
 
 
-    @Override
+   /* @Override
     public void onMapLoaded() {
 
         LatLngBounds.Builder builder = new LatLngBounds.Builder();
@@ -106,54 +107,63 @@ public class EarthQuakeMapFragment extends AbstractMapFragment implements Google
 
 
 
-       /* //Pone la camara centrada en todos los terremotos que hemos pintado
+       *//* //Pone la camara centrada en todos los terremotos que hemos pintado
         LatLngBounds bounds = builder.build();
         CameraUpdate cu = CameraUpdateFactory.newLatLngBounds(bounds, 0);
-        map.moveCamera(cu);*/
+        map.moveCamera(cu);*//*
 
     }
-
+*/
 
 
     @Override
     protected void getData() {
 
-        prefs= PreferenceManager.getDefaultSharedPreferences(getActivity());
-        int minMap = Integer.parseInt(prefs.getString(R.string.opcion3Key,"0"));
+        String id = getActivity().getIntent().getStringExtra(EARTHQUAKE_KEY);
 
-        earthQuakes= earthQuakeDB.listadoXMagnitud(minMap);
+        earthQuake = earthQuakeDB.ListadoXID(id).get(0);
 
     }
 
     @Override
     protected void showMap() {
-        LatLngBounds.Builder builder = new LatLngBounds.Builder();
+
+        MarkerOptions marker = createMarker(earthQuake);
+
+
+        map.setMapType(GoogleMap.MAP_TYPE_SATELLITE);
+        getMap().addMarker(marker);
+
+        CameraPosition camPos = new CameraPosition.Builder().target(marker.getPosition())
+                .zoom(5)
+                .build();
+
+        CameraUpdate camUpd = CameraUpdateFactory.newCameraPosition(camPos);
+
+        getMap().animateCamera(camUpd);
+
+
+
+
+      /*  LatLngBounds.Builder builder = new LatLngBounds.Builder();
         LatLng point;
 
-        for (EarthQuake earthquake: earthQuakes){
+        point = new LatLng(
+                    earthQuake.getCoords().getLng(),
+                    earthQuake.getCoords().getLat());
 
-            //añadimos todos los terremotos que le pasamos en la lista
-
-            //EarthQuake terremoto = earthquake.get(i);
-            point = new LatLng(
-                    earthquake.getCoords().getLng(),
-                    earthquake.getCoords().getLat());
-
-            MarkerOptions marker = new MarkerOptions();
+            MarkerOptions marker = createMarker(earthQuake);
             //marker.snippet(terremoto.getPlace());
             marker.position(point);
-            marker.title(earthquake.getMagnitudString().concat(" ") + earthquake.getPlace());
+            marker.title(earthQuake.getMagnitudString().concat(" ") + earthQuake.getPlace());
 
-            // getMap().addMarker(marker);
             map.addMarker(marker);
             builder.include(marker.getPosition());
 
-        }
+
         LatLngBounds bounds =builder .build();
         CameraUpdate cu=CameraUpdateFactory.newLatLngBounds(bounds,10);
         getMap().animateCamera(cu);
-
-
-
+*/
     }
 }

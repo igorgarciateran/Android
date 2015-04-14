@@ -54,6 +54,20 @@
     </string-array>
 
 
+    <string-array name="Opcion4_Lista_Titulo">
+        <item>Satelite</item>
+        <item>Hibrido</item>
+        <item>Terreno</item>
 
+
+    </string-array>
+
+    <string-array
+        name="Opcion4_Lista_Valor">
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+
+    </string-array>
 
 </resources>

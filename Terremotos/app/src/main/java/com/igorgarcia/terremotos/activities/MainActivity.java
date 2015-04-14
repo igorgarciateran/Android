@@ -14,6 +14,7 @@ import android.widget.Toast;
 import com.igorgarcia.terremotos.Alarmas.Alarma;
 import com.igorgarcia.terremotos.Fragmentos.EarthQuakeListFragment;
 import com.igorgarcia.terremotos.Fragmentos.EarthQuakeMapFragment;
+import com.igorgarcia.terremotos.Fragmentos.EarthQuakesListMapFragment;
 import com.igorgarcia.terremotos.ListenerPestanyas.TabListener;
 import com.igorgarcia.terremotos.Model.EarthQuake;
 import com.igorgarcia.terremotos.Model.MiActionBar;
@@ -43,8 +44,8 @@ public class MainActivity extends Activity implements DownloadEarthQuakeTask.Add
 
         actionBar = getActionBar();
 
-        actionBar.setTitle("Titulo");
-        actionBar.setSubtitle("subtitulo");
+        actionBar.setTitle("Terremotos");
+        actionBar.setSubtitle("Mi aplicacion");
         actionBar.setDisplayShowTitleEnabled(true);
 
         actionBar.setHomeButtonEnabled(true);
@@ -56,7 +57,7 @@ public class MainActivity extends Activity implements DownloadEarthQuakeTask.Add
         ActionBar.Tab tabOne = actionBar.newTab();
         ActionBar.Tab tabtwo = actionBar.newTab();
 
-        tabOne.setText("Primera")
+        tabOne.setText("Lista")
 
                 //.setIcon(R.drawable.ic_launcher)
                 //.setContentDescription("Segunda”)
@@ -65,11 +66,11 @@ public class MainActivity extends Activity implements DownloadEarthQuakeTask.Add
                                 (this, R.id.fragmentContainer, EarthQuakeListFragment.class));
         actionBar.addTab(tabOne);
 
-        tabtwo.setText("Segunda")
+        tabtwo.setText("Mapa")
 
                 .setTabListener(
-                        new TabListener<EarthQuakeMapFragment>
-                                (this, R.id.fragmentContainer, EarthQuakeMapFragment.class));
+                        new TabListener<EarthQuakesListMapFragment>
+                                (this, R.id.fragmentContainer, EarthQuakesListMapFragment.class));
         actionBar.addTab(tabtwo);
 
         checkToSetAlarm();
@@ -78,6 +79,7 @@ public class MainActivity extends Activity implements DownloadEarthQuakeTask.Add
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
+
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_main, menu);
 
@@ -189,6 +191,10 @@ public class MainActivity extends Activity implements DownloadEarthQuakeTask.Add
  */
 
     }
+
+
+
+
 
 
 }

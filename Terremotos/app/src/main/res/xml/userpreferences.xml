@@ -35,4 +35,19 @@
 
 
     </PreferenceCategory>
+
+
+    <PreferenceCategory android:title="@string/Categoria3">
+        <!-- Magnitud Minima -->
+        <ListPreference android:key="@string/opcion4Key"
+            android:title="@string/opcion4Title"
+            android:summary="@string/opcion4Summary"
+            android:defaultValue="@string/opcion4Value"
+            android:entries="@array/Opcion4_Lista_Titulo"
+            android:entryValues="@array/Opcion4_Lista_Valor">
+        </ListPreference>
+
+
+    </PreferenceCategory>
+
 </PreferenceScreen>

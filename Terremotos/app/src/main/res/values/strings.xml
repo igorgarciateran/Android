@@ -39,6 +39,14 @@
     <string name="opcion3Summary">Magnitud Minima a mostrar</string>
     <string name="opcion3Value">5 </string>
 
+
+    <string name="opcion4Key">PREF_TYPE_MAP </string>
+    <string name="opcion4Title">Tipo de mapa</string>
+    <string name="opcion4Summary">Tipo mapa</string>
+    <string name="opcion4Value">1 </string>
+
+
+
     <!-- FIN  MENU SETTINGS-->>
 
 <!-- TODO: Remove or change this placeholder text -->
@@ -50,5 +58,8 @@
     <string name="DATABASE_NAME">Terremotos.db </string>
 
     <!-- FIN BD-->>
+
+
+    <string name="action_refresh">Actualizar </string>
 
 </resources>

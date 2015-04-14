@@ -40,7 +40,6 @@ public class DetailActivity extends Activity {
         //cogemos el enlace al mapa
         mapFragment =(EarthQuakeMapFragment)getFragmentManager().findFragmentById(R.id.map_fragment);
 
-
         earthQuakeDB = new EarthQuakeDB(getApplicationContext());
 //        private Intent nuevoIntent = getIntent();
 //        private String id = nuevoIntent.getStringExtra(EARTHQUAKE_KEY);
@@ -65,6 +64,7 @@ public class DetailActivity extends Activity {
           TextView TxtEnlace = (TextView) findViewById(R.id.txtEnlace);
 
         resultados = earthQuakeDB.ListadoXID(id);
+
         if (resultados.size() > 0) {
             EarthQuake terre = resultados.get(0);
             // setUpMapIfNeeded(terre);
@@ -73,7 +73,8 @@ public class DetailActivity extends Activity {
                 TxtTexto.setText(terre.getPlace());
                 TxtEnlace.setText(terre.getPlace());
 
-                mapFragment.setEartQuakes(resultados);
+                //mapFragment.setEartQuakes(resultados);
+                mapFragment.getMap();
 
             } catch (Exception ex) {
                 Log.d(EARTHQUAKE, ex.getMessage());
