@@ -1,0 +1,66 @@
+<resources>
+    <string name="app_name">Terremotos</string>
+
+
+    <string name="Debug">EARTHQUAKE</string>
+
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+    <string name="earth_quakes_url">http://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_day.geojson</string>
+
+
+    <string name="terremoto">terremoto</string>
+    <string name="donde">donde</string>
+    <string name="Magnitud">Magnitud</string>
+    <string name="title_activity_detail">Detail</string>
+    <string name="Mensaje">Total Terremotos: %d </string>
+
+
+    <string name="NombreSettings">Settings </string>
+
+<!-- MENU SETTINGS-->>
+    <string name="Categoria1">Actualizacion Terremotos </string>
+    <string name="Categoria2">Filtro </string>
+    <string name="Categoria3">categoria3? </string>
+
+    <string name="opcion1Key">PREF_REFRESH_AUTO </string>
+    <string name="opcion1Title">Refresco</string>
+    <string name="opcion1Summary">Refresco Automatico SI/NO </string>
+    <string name="opcion1Value">0 </string>
+
+
+    <string name="opcion2Key">PREF_REFRESH_VALUE </string>
+    <string name="opcion2Title">Frecuencia </string>
+    <string name="opcion2Summary">Frecuencia de refresco</string>
+    <string name="opcion2Value">5 </string>
+
+
+    <string name="opcion3Key">PREF_MAGNITUD_MIN </string>
+    <string name="opcion3Title">Magnitud</string>
+    <string name="opcion3Summary">Magnitud Minima a mostrar</string>
+    <string name="opcion3Value">5 </string>
+
+
+    <string name="opcion4Key">PREF_TYPE_MAP </string>
+    <string name="opcion4Title">Tipo de mapa</string>
+    <string name="opcion4Summary">Tipo mapa</string>
+    <string name="opcion4Value">1 </string>
+
+
+
+    <!-- FIN  MENU SETTINGS-->>
+
+<!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+
+    <!-- BD-->>
+
+    <string name="DATABASE_NAME">Terremotos.db </string>
+
+    <!-- FIN BD-->>
+
+
+    <string name="action_refresh">Actualizar </string>
+
+</resources>

@@ -10,13 +10,10 @@ import android.view.MenuItem;
 import android.widget.TextView;
 
 import com.google.android.gms.maps.GoogleMap;
-import com.google.android.gms.maps.MapFragment;
-import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.MarkerOptions;
-import com.igorgarcia.terremotos.BD.EarthQuakeDB;
 import com.igorgarcia.terremotos.Fragmentos.EarthQuakeMapFragment;
 import com.igorgarcia.terremotos.Model.EarthQuake;
 import com.igorgarcia.terremotos.R;
+import com.igorgarcia.terremotos.provider.EarthQuakeDB;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -60,9 +57,9 @@ public class DetailActivity extends Activity {
          Intent nuevoIntent = getIntent();
          String id = nuevoIntent.getStringExtra(EARTHQUAKE_KEY);
          List<EarthQuake> resultados;
-          TextView TxtMagnitud = (TextView) findViewById(R.id.txtMagnitud);
+         TextView TxtMagnitud = (TextView) findViewById(R.id.txtMagnitud);
          TextView TxtTexto = (TextView) findViewById(R.id.txtTexto);
-          TextView TxtEnlace = (TextView) findViewById(R.id.txtEnlace);
+         TextView TxtEnlace = (TextView) findViewById(R.id.txtEnlace);
 
         resultados = earthQuakeDB.ListadoXID(id);
 
@@ -70,12 +67,10 @@ public class DetailActivity extends Activity {
             EarthQuake terre = resultados.get(0);
             // setUpMapIfNeeded(terre);
             try {
-                double  magnitud=terre.getMagnitud();
-                TxtTexto.setText(Double.toString(magnitud));
-                //Color color=new Color.rgb( 0,0,0);
-                //color=Color.rgb(Math. (magnitud*254/10),125,125);
-                //TxtTexto.setBackgroundColor( color);
-                TxtEnlace.setText(terre.getPlace());
+
+                TxtMagnitud.setText(terre.getMagnitudString());
+                TxtTexto.setText((terre.getPlace()));
+                TxtEnlace.setText(terre.getUrl());
 
                 //mapFragment.setEartQuakes(resultados);
                 mapFragment.getMap();
