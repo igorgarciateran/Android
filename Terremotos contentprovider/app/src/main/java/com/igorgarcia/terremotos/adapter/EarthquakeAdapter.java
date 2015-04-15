@@ -53,8 +53,8 @@ public class EarthquakeAdapter extends ArrayAdapter <EarthQuake> {
         TextView Fecha=(TextView) layout.findViewById(R.id.TxtDatoAbajo);
 
         double  magnitud=earthQuake.getMagnitud();
-        //int rojo= Integer.getInteger( Double.toString (Math.round(magnitud*254/10))) ;
-        //Magnitud.setBackgroundColor( Color.rgb(rojo, 125, 125));
+        int rojo=Integer.parseInt( Long.toString( Math.round(magnitud* 254 / 10)));
+        Magnitud.setBackgroundColor(Color.rgb(rojo, 10, 0));
 
         //enlazamos los controles con los datos
         Magnitud.setText( String.valueOf(earthQuake.getMagnitud()));
